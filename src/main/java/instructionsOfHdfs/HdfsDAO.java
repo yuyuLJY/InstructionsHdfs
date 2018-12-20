@@ -1,4 +1,4 @@
-package com.yuyu;
+package instructionsOfHdfs;
 
 import java.io.IOException;
 import java.net.URI;
