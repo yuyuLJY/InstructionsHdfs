@@ -28,13 +28,14 @@ public class HdfsDAO {
     //Hadoop系统配置
     private Configuration conf;
 
-    //启动函数
+    /*-----------------启动函数------------------*/
     public static void main(String[] args) throws IOException {
         JobConf conf = config();
         HdfsDAO hdfs = new HdfsDAO(conf);
-        hdfs.ls("/user");
-        hdfs.mkdirs("/tryToMkdirs");
-        hdfs.rmr("/tryToMkdirs");
+        //hdfs.ls("/user");//1、展示文件目录
+        //hdfs.mkdirs("/tryToMkdirs");//2、创建文件夹
+        //hdfs.rmr("/user/sort/result/default6");//3、删除文件夹
+        //hdfs.copyFile("C:/Users/yuyu/Desktop/大数据/实验/数据集/flight_truth", "/user/findTruth/data/flight_truth");//4、复制本地文件夹到远端
     }        
     
     //加载Hadoop配置文件
@@ -78,4 +79,10 @@ public class HdfsDAO {
         fs.close();
     }
     
+    public void copyFile(String local, String remote) throws IOException {
+        FileSystem fs = FileSystem.get(URI.create(hdfsPath), conf);
+        fs.copyFromLocalFile(new Path(local), new Path(remote));
+        System.out.println("copy from: " + local + " to " + remote);
+        fs.close();
+    }
 }
